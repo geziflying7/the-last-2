@@ -1,6 +1,15 @@
 <?php
     /**
      * 数组工具类
+     
+     在ArrayUtil中存在，
+                数组（对象）排序方法、sortOn($array,$key,$desc=true,$valueIsObject=false) 根据key的值大小排序
+                对象转化数组方法、
+                查询数组中需要的字段并返回新的数组、
+                包含某个值判断方法、
+                查询字符串在数组中出现的位置、
+                删除数组中的某个值、
+                复制一个数组；
      */
     class ArrayUtil {
         /**
