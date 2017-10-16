@@ -1,0 +1,44 @@
+每天进步一点点，未来前进一大步：
+淄博麻将客户端：
+首先应该了解麻将入口以及初始化的过程，
+init
+gamePanel:
+      new GameDataParse(this);
+      GameDataParse:
+                    selfUid:string 
+                    gamePanel:GamePanel
+                    tagEvents:any
+                    timer:any
+                    constructor(gamepanel:GamePanel)
+                        this.selfUid = RoleData.gerRole().uid
+                        this.gamePanel = gamePanel
+                        this.tagEvennts = {};
+                        this.timer = {};
+                        this.tagEvents['ready']= this.OnReady
+                        this.tagEvents['startGame']=this.onStartGame
+                        this.tagEvents['chupai']=this.onchupai
+                        this.tagevents['endgame']=this.onEndGame;
+                        this.tagEvents['updateCurrentUid'] = this.onUpdateCurrentUid;
+                        this.tagEvents['hupai'] = this.hupai;
+                        this.tagEvents['huangzhuang'] = this.huangzhuang;
+                        this.tagEvents['operating'] = this.onOperating;
+                    
+                        onJoinRoom(data:any)
+                        
+                        onRready(data):看到这里就不明白，为什么会出现两个ready
+                                        if(head) head.readyTag.visible = true
+                                        if(uid == RoleData.getRole().uid){
+                                          this.gamePanel.readyBtn.visible = false;
+                                        }
+                        onStartGame(data:any):开始游戏，保存麻将游戏数据，保存麻将列表数
+                                        根据服务器端传递过来的数据信息，game,mjList,缓存数据
+                                     updateMjlistContainer(true):显示别人出牌后自己的选项
+                                     tagChupai():标记当前出牌的人是谁
+                                                getRoleIndex：获取玩家真正显示的位置
+                                     updateMjCountText：更新麻将剩余张数
+                        
+                        
+                        
+                    
+                    
+                    
