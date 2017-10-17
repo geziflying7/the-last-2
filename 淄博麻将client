@@ -36,7 +36,11 @@ gamePanel:
                                      tagChupai():标记当前出牌的人是谁
                                                 getRoleIndex：获取玩家真正显示的位置
                                      updateMjCountText：更新麻将剩余张数
-                        
+                        onChupai(data):前一个听取出来 缓存游戏  当前听取出来 取出当前游戏
+                                       游戏lou取出来，判断听牌：
+                                                            如果听牌存在，取出听牌的发送者麻将手牌；
+                                                            mjListPanel.showOptVal(6);显示听操作
+                                                            
                         
                         
                     
