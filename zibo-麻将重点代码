@@ -1,0 +1,89 @@
+获取杠底：
+getGangDi($game):
+  $start = $game->totalMj - 1;
+  $game->haidiluo = array();
+  $game->luoshu = 12;
+  for($i = 0;$i<12/2;$i++){
+    $arr = array();
+    for($j= 0;$j<2;$j++){
+      $arr[$j] = $game->mjList[$start];
+      $start--;
+    }
+    array_unshift($game->haidiluo,$arr);
+  }
+  return $game;
+  
+补杠底：
+putGangDi($game,$num):
+  $ii = $game->luoshu;//当前海底摞数
+  $game->luoshu += $num*2;明杠1摞2张，暗杠2摞4张牌
+  $start = $game->totalMj - $ii -1;
+  for($i= $ii/2;$i<$game->luoshu/2;$i++){
+    $arr = array();
+    for($j= 0;$j<2;$j++){
+      $arr[$j] = $game->mjList[$start];
+      $start--;
+    }
+    array_unshift($game->haidiluo,$arr);
+  }
+  return $game;
+  
+  一炮多响玩家排序：
+  getSortUid($pao,$uids,$room):
+    $index = self::getPlayerIndexRoom($room,$uid);
+    echo "炮：".$index;
+    $reUid = array();//重新排序的胡家顺序
+    echo "一炮多响排序前：".json_encode($uids)."\n";
+    foreach($uids as $key => $val){
+      $i = self::getPlayerIndexRoom($room,$val);
+      if($i < $index){
+        $i +=4;
+      }
+      if(count($reUid)==0) array_push($reUid,$val);
+      else
+      {
+        $a = self::getPlayerIndexRoom($room,$reUid[0]);
+        if($a < $index){
+          $a += 4;
+        }
+        $b = self::getPlayerIndexRoom($room,$reUid[count($reUid)-1]);
+        if($b < $index){
+          $b += 4;
+        }
+        echo $i." ".$a." ".$b."\n";
+        if($a>$i) array_unshift($reUid,$val);
+        else if($a<$i) array_push($reUid,$val);
+        else array_splice($reUid,1,0,$val);
+      }
+    }
+    echo "一炮多响排序后：".json_encode($reUid)."\n";
+    return $reUid;
+    
+    
+    获取新麻将：
+    newMj($game,$opVal,$num=[0,0],$gType=null):
+      if($opVal !=7){
+        $game->lastHuaGangMj = -1;
+      }
+      if($opVal == 3){
+        if($num[0] != 0){//杠后 掷筛子
+          $jiluo = $num[0];//第几摞
+          $shangxia = $num[1];//上下哪张
+          $haidiluo = $game->hai
+          $haidiluo = array_reverse($haidiluo);
+          while($jiluo>0){
+            foreach($haidiluo as $index=>$v){
+              if($v[0])
+            }
+          }
+        }
+      }
+    
+    
+    
+    
+    
+    
+    
+    
+    
