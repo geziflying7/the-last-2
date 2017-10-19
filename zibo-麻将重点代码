@@ -69,17 +69,67 @@ putGangDi($game,$num):
         if($num[0] != 0){//杠后 掷筛子
           $jiluo = $num[0];//第几摞
           $shangxia = $num[1];//上下哪张
-          $haidiluo = $game->hai
+          $haidiluo = $game->haidiluo;
+          $zhi = null;
           $haidiluo = array_reverse($haidiluo);
           while($jiluo>0){
             foreach($haidiluo as $index=>$v){
-              if($v[0])
+              if($v[0]>0&& $v[1]>0){
+                $jiluo--;
+                if($jiluo==0){
+                  $zhi = $v;
+                  $haidiluo[$index] = [-1,-1];
+                  break;
+                }
+              }
             }
+            $haidiluo = array_reverse($haidiluo);
+            $game->haidiluo = $haidiluo;
+            
+            $newMj = $zhi[$shangxia];
+            $other = $shangxia ==0 ? 1:0;
+            array_push($game->chupaiList[$game->currentUid],$zhi[$other]);
+          }else{//杠后，不掷筛子
+            $haidiluo = $game->haidiluo;
+            $zhi = null;
+            $haidiluo = array_reverse($haidiluo);
+            foreach($haidiluo as $index=>$v){
+              if($v[0]>0){
+                $zhi = $v[0];
+                $haidiluo[$index][0] = -1;
+                break;
+              }
+              elseif($v[1]>0){
+                $zhi = $v[1];
+                $haidiluo[$index][1] = -1;
+                break;
+              }
+            }
+            $haidiluo = array_reverse($haidiluo);
+            $game->haidiluo = $haidiluo;
+            $newMj = $zhi;
           }
+          //暗杠+2摞 明杠+1摞
+          if($gType == 3){
+            MjGameConstant::putGangDi($game,2);
+          }else{
+            MjGameConstant::putGangDi($game,1);
+          }
+        }else{
+          $newMj = $game->mjList[$game->currenntMj];
+          $game->currentMj++;
         }
+        $game->newMj = $newMj;
+        return $newMj;
       }
+      
+      
+      MjGameConstant:
+        $game->currentState = 1;//出牌状态,判断补花阶段不能出牌
+        $game->chupai = true;
+          
     
-    
+        
     
     
     
