@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * 边夹胡
+ * User: Administrator
+ * Date: 2017/10/13 0013
+ * Time: 下午 4:10
+ */
+class BianJiaHu extends TuiDaoHu
+{
+    public function checkType($mjList,$chiList,$pengList,$gangList,$angangList){
+        $huMj = $this->game->pao == null?$this->game->newMj:$this->game->lastMj;
+        //这里面不可能是夹胡
+        $notJia = array(1,10,19,9,18,27);
+        //边胡必须是这里面的
+        $xiabian = array(3,12,21);
+        $shangbian = array(7,16,25);
+        if(ArrayUtil::indexOf($notJia,$huMj) != -1){
+            return 1;
+        }
+        if(!$this->hu($mjList,$chiList,$pengList,$gangList,$angangList)){
+            return 1;
+        }
+        $tmpMjlist = ArrayUtil::cloneArray($mjList);
+        //找边胡
+        if(ArrayUtil::indexOf($xiabian,$huMj) != -1 && ArrayUtil::indexOf($tmpMjlist,$huMj - 1) != -1 && ArrayUtil::indexOf($tmpMjlist,$huMj - 2) != -1){
+            for($i = 0;$i < 3;$i++){
+                $tmpMjlist = ArrayUtil::removeValue($tmpMjlist,$huMj - $i);
+            }
+            if($this->hu($tmpMjlist,$chiList,$pengList,$gangList,$angangList)){
+                return 2;
+            }
+        }
+        if(ArrayUtil::indexOf($shangbian,$huMj) != -1 && ArrayUtil::indexOf($tmpMjlist,$huMj + 1) != -1 && ArrayUtil::indexOf($tmpMjlist,$huMj + 2) != -1){
+            for($i = 0;$i < 3;$i++){
+                $tmpMjlist = ArrayUtil::removeValue($tmpMjlist,$huMj + $i);
+            }
+            if($this->hu($tmpMjlist,$chiList,$pengList,$gangList,$angangList)){
+                return 2;
+            }
+        }
+        $tmpMjlist = ArrayUtil::cloneArray($mjList);
+        //找夹胡
+        if(ArrayUtil::indexOf($tmpMjlist,$huMj + 1) != -1 && ArrayUtil::indexOf($tmpMjlist,$huMj - 1) != -1){
+            $tmpMjlist = ArrayUtil::removeValue($tmpMjlist,$huMj - 1);
+            $tmpMjlist = ArrayUtil::removeValue($tmpMjlist,$huMj);
+            $tmpMjlist = ArrayUtil::removeValue($tmpMjlist,$huMj + 1);
+            if($this->hu($tmpMjlist,$chiList,$pengList,$gangList,$angangList)){
+                return 2;
+            }
+        }
+        return 1;
+    }
+}
