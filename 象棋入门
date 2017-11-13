@@ -23,3 +23,33 @@
         如果对角线上刚好有敌军，可以踩掉。
       8.刚开始学习象棋时候，尽量选择可以去构建一些经典将军棋。
         比如“双重泡”“窝心马”之类的棋局，从而举一反三，提高棋艺。
+
+
+象棋开发的想法：
+
+主要类的介绍
+ LoginDialog:登录对话框，需要输入用户名和服务器地址(localhost)
+ ChessServer:服务器
+ ChessClient:客户端界面，登录成功后，跳转到该界面
+ 
+ cn.fansunion.core
+ ChessBoard:棋盘
+ ChessPiece:棋子
+ ChessPoint:棋子点
+ GameRule:游戏规则
+ MoveRecord:一条移动记录的所有信息
+ MoveStep:一条移动记录的起始和结束的位置信息
+ 
+
+ 
+ cn.fansunion.ui
+ Demo:演示历史游戏界面
+ MakeChessManual:棋子移动记录面板
+ 
+ cn.fansunion.util
+ ChessUtils:工具类
+ Constants:常量
+ DataPacket:2个客户端通信用的数据包
+ HandleASession:为2个玩家定义一个线程类来处理新的会话
+ Message:聊天信息
+ ThreadPool:线程池
